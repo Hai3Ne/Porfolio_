@@ -1,32 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Add page load animation
     document.body.classList.add('loaded');
-    
-    // Initialize animations for sections
     initScrollAnimations();
-    
-    // Smooth scrolling for navigation links
     initSmoothScrolling();
-    
-    // Mobile menu toggle functionality
     initMobileMenu();
-    
-    // Form submission handler
     initContactForm();
-    
-    // Handle game instructions visibility
     handleGameInstructionsVisibility();
-    
-    // Handle game state based on scroll position
     handleGameState();
-    
-    // Add hover effects for project cards
     addProjectCardEffects();
+    initStickyImage();
+    window.addEventListener('resize', initStickyImage);
 });
-
-// Initialize animations that trigger on scroll
 function initScrollAnimations() {
-    // Elements to animate when they come into view
     const animatedElements = document.querySelectorAll('.section-title, .project-card, .about-content > *, .contact-content > *');
     
     const animateOnScroll = function() {
@@ -40,15 +24,9 @@ function initScrollAnimations() {
             }
         });
     };
-    
-    // Run once on load
     animateOnScroll();
-    
-    // Run on scroll
     window.addEventListener('scroll', animateOnScroll);
 }
-
-// Initialize smooth scrolling for navigation
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -82,8 +60,6 @@ function initSmoothScrolling() {
         });
     });
 }
-
-// Initialize mobile menu functionality
 function initMobileMenu() {
     const nav = document.querySelector('nav');
     const navLinks = document.querySelector('.nav-links');
@@ -121,8 +97,6 @@ function initMobileMenu() {
         }
     }
 }
-
-// Initialize contact form functionality
 function initContactForm() {
     const contactForm = document.querySelector('.contact-form form');
     
@@ -158,7 +132,6 @@ function initContactForm() {
     }
 }
 
-// Display form submission messages
 function showFormMessage(message, type) {
     // Remove existing message
     const existingMessage = document.querySelector('.form-message');
@@ -182,7 +155,6 @@ function showFormMessage(message, type) {
     }, 5000);
 }
 
-// Handle game instructions visibility
 function handleGameInstructionsVisibility() {
     const gameInstructions = document.querySelector('.game-instructions');
     const heroSection = document.querySelector('.hero');
@@ -208,7 +180,6 @@ function handleGameInstructionsVisibility() {
     checkScroll();
 }
 
-// Handle game state based on scroll position
 function handleGameState() {
     const heroSection = document.querySelector('.hero');
     const gameInterface = window.gameInterface;
@@ -228,7 +199,6 @@ function handleGameState() {
     }
 }
 
-// Add hover effects for project cards
 function addProjectCardEffects() {
     const projectCards = document.querySelectorAll('.project-card');
     
@@ -254,5 +224,45 @@ function addProjectCardEffects() {
         card.addEventListener('mouseleave', function() {
             card.style.transform = '';
         });
+    });
+}
+
+function initStickyImage() {
+    const aboutSection = document.querySelector('.about');
+    const aboutImage = document.querySelector('.about-image');
+    const profileImg = document.querySelector('.profile-img');
+    if (!aboutSection || !aboutImage || !profileImg) return;
+    if (window.innerWidth <= 992) return;
+    window.addEventListener('scroll', function() {
+        const rect = aboutSection.getBoundingClientRect();
+        if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+            const scrollPosition = window.scrollY - aboutSection.offsetTop;
+            const parallaxValue = scrollPosition * 0.05;
+            if (parallaxValue > 0 && parallaxValue < 40) {
+                profileImg.style.transform = `translateY(${parallaxValue}px)`;
+            }
+        }
+    });
+    
+    const aboutTextElements = document.querySelectorAll('.about-text p, .about-text .skill-section, .about-text .interests-section, .about-text .education-section');
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    aboutTextElements.forEach(element => {
+        observer.observe(element);
+        element.classList.add('hidden-element');
     });
 }

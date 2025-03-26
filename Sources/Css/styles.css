@@ -450,36 +450,6 @@ nav {
     border-left: 3px solid var(--primary);
 }
 
-/* About Section */
-.about {
-    background-color: var(--dark-accent);
-    padding: 120px 0;
-    position: relative;
-}
-
-.about::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top right, rgba(0, 221, 255, 0.05), transparent 70%);
-    pointer-events: none;
-}
-
-.about-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 60px;
-    margin-top: 40px;
-}
-
-.about-image {
-    flex: 0 0 350px; /* Fixed width for better proportions */
-    position: relative;
-}
-
 .image-container {
     width: 100%;
     height: 450px;
@@ -504,10 +474,6 @@ nav {
     height: 100%;
     background: linear-gradient(135deg, transparent 60%, rgba(0, 221, 255, 0.2));
     z-index: 1;
-}
-
-.about-image:hover .profile-img {
-    transform: scale(1.05);
 }
 
 .social-icons {
@@ -536,11 +502,6 @@ nav {
     transform: translateY(-5px);
 }
 
-.about-text {
-    flex: 1;
-    padding-right: 20px;
-}
-
 .intro-text {
     font-size: 17px;
     line-height: 1.7;
@@ -551,24 +512,6 @@ nav {
 .highlight {
     color: var(--primary);
     font-weight: 600;
-}
-
-.about-text h3 {
-    color: var(--primary);
-    margin: 35px 0 20px;
-    font-size: 24px;
-    position: relative;
-    display: inline-block;
-}
-
-.about-text h3::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--primary);
 }
 
 .skill-section {
@@ -793,49 +736,8 @@ footer p {
 
 /* Responsive Design */
 /* Responsive adjustments */
-@media (max-width: 992px) {
-    .about-content {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .about-image {
-        width: 100%;
-        max-width: 400px;
-        margin-bottom: 40px;
-    }
-    
-    .image-container {
-        height: 400px;
-    }
-    
-    .about-text {
-        padding-right: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .about {
-        padding: 80px 0;
-    }
-    
-    .about-image {
-        max-width: 320px;
-    }
-    
-    .image-container {
-        height: 350px;
-    }
-    
-    .intro-text {
-        font-size: 16px;
-    }
-}
 
 @media (max-width: 480px) {
-    .about-image {
-        max-width: 280px;
-    }
     
     .image-container {
         height: 320px;

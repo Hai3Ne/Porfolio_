@@ -1,0 +1,335 @@
+/* CSS Riêng Cho Phần About */
+.about {
+    background-color: var(--dark-accent);
+    padding: 120px 0;
+    position: relative;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(0, 221, 255, 0.05), transparent 70%);
+    pointer-events: none;
+}
+
+.about-content {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.about-image {
+    flex: 0 0 350px;
+    position: sticky;
+    top: 100px; /* Khoảng cách từ top khi bắt đầu sticky */
+    height: max-content; /* Đảm bảo container chỉ cao bằng nội dung */
+    align-self: flex-start; /* Giữ ở vị trí top của flex container */
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.image-container {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 60%, rgba(0, 221, 255, 0.2));
+    z-index: 1;
+}
+
+.about-image:hover .profile-img {
+    transform: scale(1.05);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.social-icons::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.5s ease;
+}
+
+.about-image.in-view .social-icons::before {
+    width: 60%;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    font-size: 18px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.social-icon:hover {
+    background-color: var(--primary);
+    color: var(--dark);
+    transform: translateY(-5px);
+}
+
+.about-image.in-view .social-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-image.in-view .social-icon:nth-child(1) {
+    transition-delay: 0.3s;
+}
+
+.about-image.in-view .social-icon:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.about-image.in-view .social-icon:nth-child(3) {
+    transition-delay: 0.5s;
+}
+
+.about-text {
+    flex: 1;
+    padding-right: 20px;
+    min-height: 800px; /* Đảm bảo text đủ dài để scroll effect hoạt động tốt */
+}
+
+.intro-text {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: var(--light-text);
+}
+
+.highlight {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.about-text h3 {
+    color: var(--primary);
+    margin: 35px 0 20px;
+    font-size: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-text h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--primary);
+}
+
+.skill-section {
+    margin-top: 30px;
+}
+
+.skills, .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.skill {
+    background-color: rgba(0, 221, 255, 0.1);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 221, 255, 0.2);
+}
+
+.skill:hover {
+    background-color: var(--primary);
+    color: var(--dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 221, 255, 0.3);
+}
+
+.interest {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--light-text);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.interest:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+}
+
+.education-item {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.education-item:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    transform: translateX(5px);
+}
+
+.education-item h4 {
+    color: var(--light-text);
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.education-item p {
+    color: var(--muted-text);
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* Animation classes */
+.hidden-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tạo độ trễ cho các phần tử */
+.about-text p.slide-in:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.about-text p.slide-in:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.about-text p.slide-in:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.about-text p.slide-in:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.skill-section.slide-in {
+    transition-delay: 0.5s;
+}
+
+.interests-section.slide-in {
+    transition-delay: 0.6s;
+}
+
+.education-section.slide-in {
+    transition-delay: 0.7s;
+}
+
+/* Highlight cho hình ảnh khi scroll đến */
+.about-image.in-view .image-container {
+    box-shadow: 0 15px 40px rgba(0, 221, 255, 0.3);
+}
+
+/* Parallax scroll effect */
+.parallax-scroll {
+    transform: translateY(var(--parallax-y, 0));
+    transition: transform 0.1s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .about-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .about-image {
+        position: relative; /* Disable sticky on mobile */
+        top: 0;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 40px;
+    }
+    
+    .image-container {
+        height: 400px;
+    }
+    
+    .about-text {
+        padding-right: 0;
+        min-height: auto; /* Reset min-height on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 80px 0;
+    }
+    
+    .about-image {
+        max-width: 320px;
+    }
+    
+    .image-container {
+        height: 350px;
+    }
+    
+    .intro-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-image {
+        max-width: 280px;
+    }
+    
+    .image-container {
+        height: 320px;
+    }
+}
