@@ -1,3 +1,4 @@
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +6,21 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+    --primary: #0df;
+    --dark: #111;
+    --dark-accent: #1a1a1a;
+    --light-text: #fff;
+    --muted-text: #aaa;
+    --card-bg: #222;
+    --transition: 0.3s ease;
+}
+
 body {
-    background-color: #111;
-    color: #fff;
+    background-color: var(--dark);
+    color: var(--light-text);
     overflow-x: hidden;
+    line-height: 1.6;
 }
 
 .container {
@@ -17,14 +29,46 @@ body {
     padding: 0 20px;
 }
 
+section {
+    padding: 100px 0;
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--primary);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary);
+}
+
+.section-description {
+    text-align: center;
+    color: var(--muted-text);
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    font-size: 18px;
+}
+
 /* Header */
 header {
-    padding: 20px 0;
+    padding: 15px 0;
     position: fixed;
     width: 100%;
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 nav {
@@ -36,7 +80,7 @@ nav {
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #0df;
+    color: var(--primary);
 }
 
 .nav-links {
@@ -49,15 +93,31 @@ nav {
 }
 
 .nav-links a {
-    color: #fff;
+    color: var(--light-text);
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: color var(--transition);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary);
+    transition: width var(--transition);
 }
 
 .nav-links a:hover {
-    color: #0df;
+    color: var(--primary);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 /* Hero Section */
@@ -81,30 +141,36 @@ nav {
 .hero-content {
     position: relative;
     z-index: 2;
+    max-width: 700px;
 }
 
 .hero h1 {
     font-size: 56px;
     margin-bottom: 20px;
-    color: #fff;
+    color: var(--light-text);
+    animation: fadeInUp 1s ease;
 }
 
 .hero p {
     font-size: 20px;
     margin-bottom: 30px;
-    max-width: 600px;
-    color: #aaa;
+    color: var(--muted-text);
+    animation: fadeInUp 1s ease 0.2s forwards;
+    opacity: 0;
 }
 
 .cta-button {
     display: inline-block;
-    background-color: #0df;
-    color: #111;
+    background-color: var(--primary);
+    color: var(--dark);
     padding: 12px 30px;
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform var(--transition), box-shadow var(--transition);
+    animation: fadeInUp 1s ease 0.4s forwards;
+    opacity: 0;
+    letter-spacing: 1px;
 }
 
 .cta-button:hover {
@@ -112,16 +178,75 @@ nav {
     box-shadow: 0 10px 20px rgba(0, 221, 255, 0.3);
 }
 
-/* Projects Section */
-.projects {
-    padding: 100px 0;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.section-title {
-    font-size: 36px;
-    margin-bottom: 60px;
-    text-align: center;
-    color: #0df;
+/* Game Instructions */
+.game-instructions {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background-color: rgba(10, 10, 20, 0.85);
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.game-instructions.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.game-instructions h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.game-instructions p {
+    color: var(--muted-text);
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.control-key {
+    background-color: #333;
+    color: var(--light-text);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Projects Section - Improved */
+.projects, .freelance-projects {
+    background-color: var(--dark);
+    position: relative;
+}
+
+.freelance-projects {
+    background-color: #161616;
 }
 
 .projects-grid {
@@ -130,6 +255,17 @@ nav {
     gap: 30px;
 }
 
+/* .project-card {
+    background-color: var(--dark-accent);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+} */
 .project-card {
     background-color: #1a1a1a;
     border-radius: 10px;
@@ -137,111 +273,198 @@ nav {
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
-
 .project-link {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: transform 0.3s;
-}
-
-.project-link:hover {
-    transform: translateY(-5px);
+    height: 100%;
 }
 
 .project-link:hover .project-card {
-    box-shadow: 0 15px 30px rgba(0, 221, 255, 0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 221, 255, 0.2);
 }
 
-.project-icon {
+.project-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    border-bottom: 2px solid var(--primary);
+}
+
+.project-img {
     width: 100%;
-    height: 120px;
-    background: linear-gradient(135deg, #222 0%, #333 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid #0df;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
 }
 
-.project-symbol {
+.project-link:hover .project-img {
+    transform: scale(1.05);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.project-link:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-overlay .project-icon {
     font-size: 48px;
-    font-style: normal;
+    color: var(--light-text);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .project-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 
 .project-info h3 {
     font-size: 24px;
-    margin-bottom: 10px;
-    color: #0df;
+    margin-bottom: 15px;
+    color: var(--primary);
 }
 
 .project-info p {
-    color: #aaa;
-    margin-bottom: 15px;
-    line-height: 1.5;
-    font-size: 14px;
+    color: var(--muted-text);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 15px;
+    flex-grow: 1;
 }
+
 .project-note {
-    background-color: rgba(255, 255, 200, 0.1);
+    background-color: rgba(255, 220, 100, 0.1);
     border-left: 3px solid #f5a623;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 12px;
+    margin-bottom: 20px;
     font-size: 13px;
     color: #ddd;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    border-radius: 0 5px 5px 0;
 }
 
 .note-icon {
-    margin-right: 8px;
+    margin-right: 10px;
     font-size: 16px;
+    color: #f5a623;
 }
 
+.project-extension {
+    background-color: rgba(0, 221, 255, 0.1);
+    border-left: 3px solid #0df;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 5px 5px 0;
+    display: block;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+    clear: both; /* Tránh các vấn đề float */
+    overflow: hidden; /* Xử lý vấn đề clearfix */
+}
+
+.extension-link {
+    display: block;
+    color: #0df;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.extension-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.extension-link i {
+    margin-right: 8px;
+}
+
+.extension-description {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.extension-link:hover {
+    color: var(--light-text);
+    text-decoration: underline;
+}
+
+.extension-link i {
+    margin-right: 8px;
+}
 .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
 .tag {
-    background-color: #333;
-    color: #0df;
-    padding: 5px 10px;
+    background-color: rgba(0, 221, 255, 0.1);
+    color: var(--primary);
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(0, 221, 255, 0.3);
+    transition: background-color var(--transition), color var(--transition);
 }
 
-.freelance-projects {
-    padding: 100px 0;
-    background-color: #161616;
+.tag:hover {
+    background-color: var(--primary);
+    color: var(--dark);
 }
 
-.section-description {
-    text-align: center;
-    color: #aaa;
-    max-width: 800px;
-    margin: 0 auto 50px auto;
-    font-size: 18px;
-    line-height: 1.6;
+/* Project Icon (for projects without images) */
+.project-card .project-icon {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(135deg, #222 0%, #333 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--primary);
 }
 
-/* Reuse existing project card styles, but add subtle differences */
+.project-card .project-symbol {
+    font-size: 48px;
+    font-style: normal;
+    color: var(--primary);
+    transition: transform var(--transition);
+}
+
+.project-link:hover .project-symbol {
+    transform: scale(1.2);
+}
+
 .freelance-projects .project-card {
-    border-left: 3px solid #0df;
+    border-left: 3px solid var(--primary);
 }
 
-.freelance-projects .project-icon {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    border-bottom: 1px solid rgba(0, 221, 255, 0.3);
-}
 /* About Section */
 .about {
-    padding: 100px 0;
-    background-color: #1a1a1a;
+    background-color: var(--dark-accent);
 }
 
 .about-content {
@@ -252,14 +475,21 @@ nav {
 
 .about-image {
     flex: 1;
-    background-color: #333;
-    height: 400px;
+    height: 450px;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: #0df;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.about-image:hover .profile-img {
+    transform: scale(1.05);
 }
 
 .about-text {
@@ -268,56 +498,71 @@ nav {
 
 .about-text h2 {
     font-size: 36px;
-    margin-bottom: 20px;
-    color: #0df;
+    margin-bottom: 25px;
+    color: var(--primary);
 }
 
 .about-text p {
-    color: #aaa;
+    color: var(--muted-text);
     margin-bottom: 20px;
     line-height: 1.6;
 }
-.about-image {
-    flex: 1;
-    height: 400px;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333;
-}
 
-.profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
-}
-
-.about-image:hover .profile-img {
-    transform: scale(1.05);
-}
-
-.skills {
+.skills, .interests {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 30px;
 }
 
-.skill {
-    background-color: #111;
-    color: #0df;
+.skill, .interest {
+    background-color: rgba(0, 221, 255, 0.1);
+    color: var(--primary);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 14px;
+    transition: background-color var(--transition), color var(--transition);
+    border: 1px solid rgba(0, 221, 255, 0.2);
 }
 
+.skill:hover, .interest:hover {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.interests-section, .education-section {
+    margin-top: 40px;
+}
+
+.interests-section h3, .education-section h3 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.interest {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--light-text);
+}
+
+.education-item {
+    margin-bottom: 25px;
+}
+
+.education-item h4 {
+    color: var(--light-text);
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.education-item p {
+    color: var(--muted-text);
+    margin-bottom: 5px;
+}
 
 /* Contact Section */
 .contact {
-    padding: 100px 0;
+    background-color: var(--dark);
 }
 
 .contact-content {
@@ -331,55 +576,52 @@ nav {
 
 .contact-info h2 {
     font-size: 36px;
-    margin-bottom: 20px;
-    color: #0df;
+    margin-bottom: 25px;
+    color: var(--primary);
 }
 
 .contact-info p {
-    color: #aaa;
+    color: var(--muted-text);
     margin-bottom: 30px;
     line-height: 1.6;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .contact-link {
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #fff;
+    color: var(--light-text);
     text-decoration: none;
-    margin-bottom: 20px;
-    transition: color 0.3s;
+    transition: transform var(--transition);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .contact-link:hover {
-    color: #0df;
+    color: var(--primary);
+    transform: translateX(10px);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .contact-link i {
     font-size: 22px;
     width: 30px;
-    color: #0df;
+    color: var(--primary);
     text-align: center;
-}
-
-.submit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.submit-button i {
-    font-size: 16px;
-}
-
-.contact-link i {
-    color: #0df;
-    font-size: 24px;
 }
 
 .contact-form {
     flex: 1;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .form-group {
@@ -388,19 +630,28 @@ nav {
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    color: #aaa;
+    margin-bottom: 10px;
+    color: var(--muted-text);
+    font-weight: 500;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 15px;
-    background-color: #1a1a1a;
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid #333;
-    border-radius: 5px;
-    color: #fff;
+    border-radius: 8px;
+    color: var(--light-text);
     font-size: 16px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 221, 255, 0.2);
 }
 
 .form-group textarea {
@@ -409,14 +660,20 @@ nav {
 }
 
 .submit-button {
-    background-color: #0df;
-    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--primary);
+    color: var(--dark);
     border: none;
-    padding: 12px 30px;
+    padding: 14px 30px;
     border-radius: 30px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform var(--transition), box-shadow var(--transition);
+    width: 100%;
 }
 
 .submit-button:hover {
@@ -424,65 +681,53 @@ nav {
     box-shadow: 0 10px 20px rgba(0, 221, 255, 0.3);
 }
 
+.submit-button i {
+    font-size: 16px;
+}
+
 /* Footer */
 footer {
     background-color: #0a0a0a;
     padding: 30px 0;
     text-align: center;
+    border-top: 1px solid #222;
 }
 
 footer p {
     color: #666;
 }
 
-/* Game Instructions Modal */
-.game-instructions {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    border-radius: 10px;
-    z-index: 10;
-    backdrop-filter: blur(10px);
-    border: 1px solid #0df;
+/* Animations */
+@keyframes slideInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.game-instructions h3 {
-    color: #0df;
-    margin-bottom: 10px;
-    font-size: 18px;
+.slide-in {
+    animation: slideInUp 0.5s ease forwards;
 }
-
-.game-instructions p {
-    color: #aaa;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.controls {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.control-key {
-    background-color: #333;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
 
 /* Responsive Design */
+@media (max-width: 992px) {
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .about-image {
+        max-height: 400px;
+        margin-bottom: 30px;
+    }
+}
+
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 40px;
-    }
-    
-    .about-content {
-        flex-direction: column;
     }
     
     .contact-content {
@@ -492,59 +737,88 @@ footer p {
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    .project-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        transition: transform 0.3s;
+    
+    .section-title {
+        font-size: 30px;
     }
     
-    .project-link:hover {
-        transform: translateY(-5px);
-    }
-    
-    .project-link:hover .project-card {
-        box-shadow: 0 15px 30px rgba(0, 221, 255, 0.3);
-    }
-    
-    .interests-section, .education-section {
-        margin-top: 30px;
-    }
-    
-    .interests-section h3, .education-section h3 {
-        color: #0df;
-        margin-bottom: 15px;
-        font-size: 24px;
-    }
-    
-    .interests {
+    /* Mobile menu */
+    .menu-toggle {
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        z-index: 200;
     }
     
-    .interest {
-        background-color: #222;
-        color: #fff;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 14px;
-        border: 1px solid #333;
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--light-text);
+        border-radius: 3px;
+        transition: all 0.3s;
     }
     
-    .education-item {
-        margin-bottom: 20px;
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
     }
     
-    .education-item h4 {
-        color: #fff;
-        margin-bottom: 5px;
-        font-size: 18px;
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
     }
     
-    .education-item p {
-        color: #aaa;
-        margin-bottom: 5px;
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: rgba(10, 10, 20, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s;
+        z-index: 100;
+    }
+    
+    .nav-links.show {
+        right: 0;
+    }
+    
+    .nav-links li {
+        margin: 15px 0;
+    }
+    
+    .game-instructions {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-grid {
+        gap: 20px;
+    }
+    
+    .project-info h3 {
+        font-size: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 32px;
+    }
+    
+    .hero p {
+        font-size: 16px;
     }
 }
